@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { X, Trash2, Plus, Minus, ShoppingBag, ArrowRight, ShieldCheck } from "lucide-react";
 import { useCart } from "./CartProvider";
 import styles from "./CartDrawer.module.css";
@@ -188,14 +189,14 @@ export default function CartDrawer() {
               <span className={styles.subtotalAmount}>{formatPrice(subtotal)}</span>
             </div>
 
-            <button
-              type="button"
+            <Link
+              href="/checkout"
               className={styles.checkoutButton}
-              onClick={handleCheckout}
+              onClick={closeCart}
             >
               <span>PROCEED TO CHECKOUT</span>
               <ShieldCheck size={16} />
-            </button>
+            </Link>
 
             <button
               type="button"

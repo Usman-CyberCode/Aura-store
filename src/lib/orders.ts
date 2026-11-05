@@ -71,3 +71,4 @@ export async function getOrderByNumber(orderNumber: string): Promise<Order | nul
 export async function getOrdersCount(): Promise<number> {
   return ordersStore.size;
 }
+
