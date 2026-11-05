@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/home/Hero";
+import ScrollStory from "@/components/home/ScrollStory";
 
 export default function Home() {
   return (
@@ -7,11 +8,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        {/* Minimal scroll container to test navbar backdrop blur & parallax scroll */}
+        <ScrollStory />
+        {/* Placeholder anchor for navigation until Stage 4 */}
         <section
           id="shop"
           style={{
-            minHeight: "80vh",
+            minHeight: "60vh",
             backgroundColor: "var(--bg-primary)",
             position: "relative",
             zIndex: 10,
@@ -26,7 +28,7 @@ export default function Home() {
             fontFamily: "var(--font-mono)",
           }}
         >
-          <span>[ AURA STORE // UPCOMING RELEASES ]</span>
+          <span>[ AURA STORE // FW26 CAMPAIGN ]</span>
         </section>
       </main>
     </>

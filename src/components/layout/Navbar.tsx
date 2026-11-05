@@ -85,9 +85,8 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`${styles.mobileMenu} ${
-          mobileMenuOpen ? styles.mobileMenuOpen : ""
-        }`}
+        className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ""
+          }`}
       >
         <nav className={styles.mobileNavList} aria-label="Mobile Navigation">
           {NAV_ITEMS.map((item) => (
@@ -102,8 +101,7 @@ export default function Navbar() {
           ))}
         </nav>
         <div className={styles.mobileMeta}>
-          <span>AURA STORE // FW26</span>
-          <span>HAUTE COUTURE</span>
+
         </div>
       </div>
     </header>
