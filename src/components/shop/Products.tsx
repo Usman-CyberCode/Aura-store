@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ShoppingBag, Check } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
@@ -137,7 +138,11 @@ export default function Products() {
             return (
               <article key={product.id} className={styles.card}>
                 {/* Product Image Frame */}
-                <div className={styles.imageWrapper}>
+                <Link
+                  href={`/products/${product.slug}`}
+                  className={styles.imageWrapper}
+                  aria-label={`View details for ${product.name}`}
+                >
                   {product.badge && (
                     <span className={styles.badge}>{product.badge}</span>
                   )}
@@ -148,13 +153,20 @@ export default function Products() {
                     sizes="(max-width: 680px) 100vw, (max-width: 1080px) 50vw, 33vw"
                     className={styles.productImage}
                   />
-                </div>
+                </Link>
 
                 {/* Product Details */}
                 <div className={styles.cardContent}>
                   <div className={styles.productMeta}>
                     <span className={styles.productTagline}>{product.tagline}</span>
-                    <h3 className={styles.productName}>{product.name}</h3>
+                    <h3 className={styles.productName}>
+                      <Link
+                        href={`/products/${product.slug}`}
+                        style={{ color: "inherit", textDecoration: "none" }}
+                      >
+                        {product.name}
+                      </Link>
+                    </h3>
                   </div>
 
                   <div className={styles.priceRow}>

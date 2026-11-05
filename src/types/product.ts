@@ -1,14 +1,19 @@
 export interface Product {
   id: string;
+  slug: string;
   name: string;
   tagline: string;
   description: string;
   price: number; // in PKR
   category: "hoodies" | "jackets" | "footwear" | "tees";
   image: string;
+  gallery?: string[];
   badge?: "NEW DROP" | "LIMITED EDITION" | "EXCLUSIVE" | "ARCHIVE";
   sizes: string[];
   color: string;
+  material?: string;
+  cut?: string;
+  care?: string;
 }
 
 export interface CartItem {
@@ -32,4 +37,3 @@ export interface CartContextType {
   subtotal: number;
   formatPrice: (amount: number) => string;
 }
-

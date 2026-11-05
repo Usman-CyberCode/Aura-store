@@ -4,6 +4,7 @@ import { CartProvider } from "@/components/cart/CartProvider";
 import CartDrawer from "@/components/cart/CartDrawer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "AURA STORE | Haute Couture & High-Street",
   description: "A luxury contemporary streetwear & haute couture fashion house.",
 };
