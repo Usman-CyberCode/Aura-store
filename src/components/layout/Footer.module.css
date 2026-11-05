@@ -1,0 +1,236 @@
+.footer {
+  position: relative;
+  width: 100%;
+  background-color: #030303;
+  color: var(--text-primary);
+  border-top: 1px solid var(--border-subtle);
+  padding: var(--space-4xl) var(--space-xl) var(--space-2xl);
+  overflow: hidden;
+}
+
+.container {
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+  position: relative;
+  z-index: 10;
+}
+
+/* Main Top Row */
+.topRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* Brand Column */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 380px;
+}
+
+.logoText {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-red);
+  box-shadow: 0 0 10px var(--accent-red);
+}
+
+.slogan {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+.sloganPeriod {
+  color: var(--accent-red);
+}
+
+.brandDescription {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* Link Columns */
+.navCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.colHeading {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-red);
+  font-weight: 700;
+}
+
+.linkList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footerLink {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+
+.footerLink:hover {
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.externalTag {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* Back to Top Column */
+.backToTopCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.backToTopButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.backToTopButton:hover {
+  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.topIcon {
+  transition: transform var(--transition-fast);
+}
+
+.backToTopButton:hover .topIcon {
+  transform: translateY(-3px);
+}
+
+/* Minimal Crimson Divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(229, 9, 20, 0.6) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+}
+
+/* Bottom Legal & Coordinates Row */
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.legalStatement {
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.locationCoords {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.coordItem {
+  color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .topRow {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .backToTopCol {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: var(--space-3xl) var(--space-md) var(--space-xl);
+  }
+
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .bottomRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+}
+
