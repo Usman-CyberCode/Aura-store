@@ -43,8 +43,8 @@ export default function Hero() {
       // 1. Initial hero image subtle scale animation
       tl.fromTo(
         modelImageRef.current,
-        { scale: 1.08, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.8, ease: "power2.out" },
+        { scale: 1.08, opacity: 10 },
+        { scale: 1, opacity: 10, duration: 1.8, ease: "power2.out" },
         0
       );
 

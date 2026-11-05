@@ -74,17 +74,20 @@
   align-items: center;
   gap: var(--space-4xl);
   height: 100%;
+  box-sizing: border-box;
 }
 
-/* Alternate slide layout for editorial rhythm */
+/* Alternate slide layout using clean CSS ordering (preserves strict LTR text alignment) */
 .slideReverse .slideInner {
   grid-template-columns: 1fr 1fr;
-  direction: rtl;
 }
 
-.slideReverse .textContent,
+.slideReverse .textContent {
+  order: 2;
+}
+
 .slideReverse .imageCol {
-  direction: ltr;
+  order: 1;
 }
 
 /* Editorial Text Column */
@@ -94,13 +97,15 @@
   justify-content: center;
   z-index: 10;
   position: relative;
+  max-width: 580px;
+  width: 100%;
 }
 
 .slideMeta {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .slideNumber {
@@ -117,32 +122,32 @@
 
 .slideTagline {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
   color: var(--text-muted);
+  text-transform: uppercase;
 }
 
+/* Headline with zero clipping and fluid typography */
 .slideHeadline {
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 5vw, 4.75rem);
+  font-size: clamp(2rem, 3.6vw, 3.85rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: 0.04em;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #ffffff;
   margin-bottom: var(--space-lg);
-  overflow: hidden;
-}
-
-.headlineWord {
-  display: inline-block;
+  overflow: visible;
+  word-break: normal;
+  overflow-wrap: break-word;
+  white-space: normal;
   will-change: transform, opacity;
 }
 
 .slideDescription {
   font-family: var(--font-sans);
-  font-size: clamp(0.9375rem, 1.2vw, 1.125rem);
+  font-size: clamp(0.9375rem, 1.15vw, 1.125rem);
   line-height: 1.7;
   color: var(--text-secondary);
   max-width: 520px;
@@ -157,6 +162,7 @@
   gap: var(--space-xl);
   padding-top: var(--space-lg);
   border-top: 1px solid var(--border-subtle);
+  will-change: transform, opacity;
 }
 
 .detailItem {
@@ -254,7 +260,7 @@
   z-index: 10;
 }
 
-/* Top Progress Bar & Story Navigation */
+/* Fixed Story Progress Bar & Navigation Controls */
 .storyControls {
   position: absolute;
   bottom: var(--space-xl);
@@ -399,4 +405,3 @@
     display: none;
   }
 }
-
