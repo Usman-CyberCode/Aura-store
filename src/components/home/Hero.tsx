@@ -139,7 +139,7 @@ export default function Hero() {
   );
 
   const scrollToNext = () => {
-    const nextSection = document.getElementById("shop");
+    const nextSection = document.getElementById("story") || document.getElementById("shop");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
     } else {

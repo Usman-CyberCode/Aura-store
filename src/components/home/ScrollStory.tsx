@@ -88,11 +88,19 @@ export default function ScrollStory() {
       const prefersReducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
+      const isMobile = window.innerWidth <= 768;
 
       if (!sectionRef.current || !trackRef.current) return;
 
-      if (prefersReducedMotion) {
-        // Natural layout without scroll-jacking or pin
+      if (prefersReducedMotion || isMobile) {
+        // Natural stacked layout for mobile / reduced motion
+        const frames = gsap.utils.toArray<HTMLElement>(
+          ".reveal-frame",
+          sectionRef.current
+        );
+        frames.forEach((frame) => {
+          gsap.set(frame, { clipPath: "none" });
+        });
         return;
       }
 
@@ -100,7 +108,7 @@ export default function ScrollStory() {
       const getScrollDistance = () =>
         trackRef.current ? trackRef.current.scrollWidth - window.innerWidth : 2000;
 
-      // Master Scrub Timeline for horizontal movement
+      // Master Scrub Timeline for horizontal movement (duration: 3 units)
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -111,14 +119,12 @@ export default function ScrollStory() {
           invalidateOnRefresh: true,
           anticipatePin: 1,
           onUpdate: (self) => {
-            // Update active index based on progress
             const slideIndex = Math.min(
               totalSlides - 1,
               Math.floor(self.progress * totalSlides)
             );
-            setActiveSlideIndex(slideIndex);
+            setActiveSlideIndex((prev) => (prev !== slideIndex ? slideIndex : prev));
 
-            // Update custom progress bar
             if (progressBarRef.current) {
               progressBarRef.current.style.width = `${self.progress * 100}%`;
             }
@@ -126,113 +132,123 @@ export default function ScrollStory() {
         },
       });
 
-      // 1. Move track horizontally across slides
+      // 1. Move track horizontally across all slides (total timeline duration: 3)
       masterTl.to(
         trackRef.current,
         {
           x: () => -getScrollDistance(),
           ease: "none",
+          duration: 3,
         },
         0
       );
 
-      // 2. Animate atmospheric haze lighting between slides
+      // 2. Animate atmospheric haze lighting across the 3 duration units
       if (haze1Ref.current && haze2Ref.current && haze3Ref.current) {
-        // Shift to crimson haze at slide 2
         masterTl.to(
           haze1Ref.current,
-          { opacity: 0.2, ease: "power1.inOut" },
-          0.2
+          { opacity: 0.2, ease: "power1.inOut", duration: 0.5 },
+          0.8
         );
         masterTl.to(
           haze2Ref.current,
-          { opacity: 1, ease: "power1.inOut" },
-          0.3
+          { opacity: 1, ease: "power1.inOut", duration: 0.6 },
+          1.0
         );
-
-        // Shift to nocturnal neon haze at slide 3
         masterTl.to(
           haze2Ref.current,
-          { opacity: 0, ease: "power1.inOut" },
-          0.7
+          { opacity: 0, ease: "power1.inOut", duration: 0.5 },
+          1.9
         );
         masterTl.to(
           haze3Ref.current,
-          { opacity: 1, ease: "power1.inOut" },
-          0.75
+          { opacity: 1, ease: "power1.inOut", duration: 0.6 },
+          2.1
         );
       }
 
-      // 3. Slide 2 & Slide 3 Clip-Path Reveals and Image Parallax
-      const frames = gsap.utils.toArray<HTMLElement>(".reveal-frame");
-      const inners = gsap.utils.toArray<HTMLElement>(".parallax-inner");
-      const headlines = gsap.utils.toArray<HTMLElement>(".reveal-headline");
-      const descriptions = gsap.utils.toArray<HTMLElement>(".reveal-desc");
+      // 3. Slide reveals properly synchronized to the 3 duration units
+      const frames = gsap.utils.toArray<HTMLElement>(
+        ".reveal-frame",
+        sectionRef.current
+      );
+      const inners = gsap.utils.toArray<HTMLElement>(
+        ".parallax-inner",
+        sectionRef.current
+      );
+      const headlines = gsap.utils.toArray<HTMLElement>(
+        ".reveal-headline",
+        sectionRef.current
+      );
+      const descriptions = gsap.utils.toArray<HTMLElement>(
+        ".reveal-desc",
+        sectionRef.current
+      );
 
-      // Slide 1 elements entrance
+      // Slide 1 is initially visible
       if (frames[0]) {
         gsap.set(frames[0], { clipPath: "inset(0% 0% 0% 0%)" });
       }
 
-      // Slide 2 Reveal (around 30% - 60% of scrub)
+      // Slide 2 Reveal (at time 0.8 to 1.6 in the timeline)
       if (frames[1]) {
         masterTl.fromTo(
           frames[1],
           { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.1
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          0.9
         );
       }
       if (headlines[1]) {
         masterTl.fromTo(
           headlines[1],
           { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.35
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          1.0
         );
       }
       if (descriptions[1]) {
         masterTl.fromTo(
           descriptions[1],
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.4
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          1.1
         );
       }
 
-      // Slide 3 Reveal (around 65% - 95% of scrub)
+      // Slide 3 Reveal (at time 1.9 to 2.7 in the timeline)
       if (frames[2]) {
         masterTl.fromTo(
           frames[2],
           { clipPath: "inset(100% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.7
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          1.9
         );
       }
       if (headlines[2]) {
         masterTl.fromTo(
           headlines[2],
           { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.75
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          2.0
         );
       }
       if (descriptions[2]) {
         masterTl.fromTo(
           descriptions[2],
           { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.8
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          2.1
         );
       }
 
-      // Parallax drift on all inner images
+      // Parallax drift on all inner images (mapped across 0 to 3)
       inners.forEach((inner, i) => {
         masterTl.fromTo(
           inner,
           { xPercent: 12, scale: 1.05 },
-          { xPercent: -12, scale: 1, ease: "none" },
-          (i * 0.45)
+          { xPercent: -12, scale: 1, ease: "none", duration: 1 },
+          i * 1.0
         );
       });
     },

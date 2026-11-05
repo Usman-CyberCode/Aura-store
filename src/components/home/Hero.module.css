@@ -23,12 +23,10 @@
 .charcoalVignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(28, 28, 30, 0.55) 0%,
-    rgba(16, 16, 18, 0.85) 45%,
-    #050505 85%
-  );
+  background: radial-gradient(circle at 50% 50%,
+      rgba(28, 28, 30, 0.55) 0%,
+      rgba(16, 16, 18, 0.85) 45%,
+      #050505 85%);
 }
 
 .subtleRedGlow {
@@ -38,12 +36,10 @@
   transform: translate(-50%, -50%);
   width: min(800px, 90vw);
   height: min(600px, 70vh);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(229, 9, 20, 0.08) 0%,
-    rgba(229, 9, 20, 0.02) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(229, 9, 20, 0.08) 0%,
+      rgba(229, 9, 20, 0.02) 40%,
+      transparent 70%);
   filter: blur(40px);
 }
 
@@ -74,9 +70,11 @@
 /* Model Image Composition */
 .modelWrapper {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   width: min(520px, 85vw);
   height: min(620px, 78vh);
   z-index: 2;
@@ -173,7 +171,7 @@
 }
 
 .headlineWord {
-  display: inline-block;
+  text-align: left;
   will-change: transform, opacity;
 }
 
@@ -218,8 +216,8 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   transition: transform 0.3s var(--ease-cinematic),
-              box-shadow 0.3s var(--ease-cinematic),
-              background-color 0.3s var(--ease-cinematic);
+    box-shadow 0.3s var(--ease-cinematic),
+    background-color 0.3s var(--ease-cinematic);
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.12);
 }
 
@@ -338,9 +336,11 @@
     transform: translateY(-100%);
     opacity: 0;
   }
+
   40% {
     opacity: 1;
   }
+
   100% {
     transform: translateY(250%);
     opacity: 0;
@@ -400,4 +400,3 @@
     justify-content: center;
   }
 }
-

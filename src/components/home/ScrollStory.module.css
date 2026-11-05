@@ -341,7 +341,24 @@
 }
 
 @media (max-width: 768px) {
+  .storySection {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+    padding-bottom: var(--space-4xl);
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
   .slide {
+    width: 100%;
+    height: auto;
+    min-height: 85vh;
     padding: calc(var(--navbar-height) + var(--space-xs)) var(--space-md) var(--space-3xl);
   }
 
@@ -378,8 +395,8 @@
     gap: var(--space-md);
   }
 
-  .progressTrack {
-    width: 120px;
+  .storyControls {
+    display: none;
   }
 }
 

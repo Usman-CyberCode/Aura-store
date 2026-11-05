@@ -26,6 +26,7 @@ export interface CartItem {
 export interface CartContextType {
   items: CartItem[];
   isOpen: boolean;
+  isHydrated: boolean;
   openCart: () => void;
   closeCart: () => void;
   toggleCart: () => void;

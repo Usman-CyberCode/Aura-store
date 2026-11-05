@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -42,6 +42,15 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     product.gallery && product.gallery.length > 0
       ? product.gallery
       : [product.image];
+
+  // Reset state when navigating to another product
+  useEffect(() => {
+    setActiveImage(product.image);
+    setSelectedSize(product.sizes.length === 1 ? product.sizes[0] : "");
+    setQuantity(1);
+    setSizeError(false);
+    setIsAdded(false);
+  }, [product.slug, product.image, product.sizes]);
 
   // Handle Add to Cart
   const handleAddToCart = () => {

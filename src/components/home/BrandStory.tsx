@@ -21,12 +21,16 @@ export default function BrandStory() {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      if (!containerRef.current || prefersReducedMotion) {
+      if (!containerRef.current) return;
+
+      if (prefersReducedMotion) {
+        if (centerFrameRef.current) gsap.set(centerFrameRef.current, { clipPath: "none" });
+        if (dividerRef.current) gsap.set(dividerRef.current, { scaleX: 1 });
         return;
       }
 
       // 1. Headline Word-by-Word ScrollTrigger Reveal
-      const headlineWords = gsap.utils.toArray<HTMLElement>(".bs-word");
+      const headlineWords = gsap.utils.toArray<HTMLElement>(".bs-word", containerRef.current);
       gsap.fromTo(
         headlineWords,
         {
@@ -119,7 +123,10 @@ export default function BrandStory() {
       }
 
       // 6. Staggered Story Blocks Reveal
-      const storyBlocks = gsap.utils.toArray<HTMLElement>(".bs-story-block");
+      const storyBlocks = gsap.utils.toArray<HTMLElement>(
+        ".bs-story-block",
+        containerRef.current
+      );
       gsap.fromTo(
         storyBlocks,
         { y: 40, opacity: 0 },

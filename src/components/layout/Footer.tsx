@@ -39,16 +39,16 @@ export default function Footer() {
           <div className={styles.navCol}>
             <h4 className={styles.colHeading}>NAVIGATION</h4>
             <nav className={styles.linkList} aria-label="Footer Navigation">
-              <Link href="#shop" className={styles.footerLink}>
+              <Link href="/#shop" className={styles.footerLink}>
                 SHOP COLLECTION
               </Link>
-              <Link href="#story" className={styles.footerLink}>
+              <Link href="/#story" className={styles.footerLink}>
                 THE STORY
               </Link>
-              <Link href="#lookbook" className={styles.footerLink}>
+              <Link href="/#lookbook" className={styles.footerLink}>
                 LOOKBOOK
               </Link>
-              <Link href="#about" className={styles.footerLink}>
+              <Link href="/#about" className={styles.footerLink}>
                 ABOUT US
               </Link>
             </nav>

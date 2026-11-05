@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -9,10 +9,10 @@ import { useCart } from "@/components/cart/CartProvider";
 import styles from "./Navbar.module.css";
 
 const NAV_ITEMS = [
-  { label: "SHOP", href: "#shop" },
-  { label: "STORY", href: "#story" },
-  { label: "LOOKBOOK", href: "#lookbook" },
-  { label: "ABOUT", href: "#about" },
+  { label: "SHOP", href: "/#shop" },
+  { label: "STORY", href: "/#story" },
+  { label: "LOOKBOOK", href: "/#lookbook" },
+  { label: "ABOUT", href: "/#about" },
 ];
 
 export default function Navbar() {
@@ -22,13 +22,25 @@ export default function Navbar() {
 
   const { totalItems, openCart } = useCart();
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   useGSAP(
     () => {
       // Navbar scroll trigger to activate backdrop blur & border
       const trigger = ScrollTrigger.create({
         start: "top -40px",
-        onUpdate: (self) => {
-          setIsScrolled(self.progress > 0);
+        onToggle: (self) => {
+          setIsScrolled(self.isActive);
         },
       });
 

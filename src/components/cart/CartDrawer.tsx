@@ -42,19 +42,13 @@ export default function CartDrawer() {
     };
   }, [isOpen, closeCart]);
 
-  const handleCheckout = () => {
-    alert(
-      `[AURA STORE SECURE CHECKOUT]\n\nTotal: ${formatPrice(
-        subtotal
-      )}\nItems: ${totalItems}\n\nComplimentary luxury packaging & nationwide delivery applied.`
-    );
-  };
-
   const handleContinueShopping = () => {
     closeCart();
     const shopEl = document.getElementById("shop");
     if (shopEl) {
       shopEl.scrollIntoView({ behavior: "smooth" });
+    } else if (typeof window !== "undefined") {
+      window.location.href = "/#shop";
     }
   };
 

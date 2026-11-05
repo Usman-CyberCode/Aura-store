@@ -90,7 +90,21 @@ export default function Lookbook() {
       ).matches;
       const isMobile = window.innerWidth <= 768;
 
-      if (!sectionRef.current || !trackRef.current || prefersReducedMotion || isMobile) {
+      if (!sectionRef.current || !trackRef.current) return;
+
+      if (prefersReducedMotion || isMobile) {
+        // Natural stacked layout for mobile / reduced motion
+        const primaryFrames = gsap.utils.toArray<HTMLElement>(
+          ".lb-primary-frame",
+          sectionRef.current
+        );
+        const secondaryFrames = gsap.utils.toArray<HTMLElement>(
+          ".lb-secondary-frame",
+          sectionRef.current
+        );
+        [...primaryFrames, ...secondaryFrames].forEach((frame) => {
+          gsap.set(frame, { clipPath: "none" });
+        });
         return;
       }
 
@@ -98,7 +112,7 @@ export default function Lookbook() {
       const getScrollDistance = () =>
         trackRef.current ? trackRef.current.scrollWidth - window.innerWidth : 2400;
 
-      // Master Horizontal Scroll Timeline with Pinning
+      // Master Horizontal Scroll Timeline with Pinning (duration: 3 units)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -113,7 +127,7 @@ export default function Lookbook() {
               totalChapters - 1,
               Math.floor(self.progress * totalChapters)
             );
-            setActiveChapter(currentIdx);
+            setActiveChapter((prev) => (prev !== currentIdx ? currentIdx : prev));
 
             if (progressLineRef.current) {
               progressLineRef.current.style.width = `${self.progress * 100}%`;
@@ -122,93 +136,109 @@ export default function Lookbook() {
         },
       });
 
-      // 1. Horizontal movement of the track
+      // 1. Horizontal movement of the track (total timeline duration: 3)
       tl.to(
         trackRef.current,
         {
           x: () => -getScrollDistance(),
           ease: "none",
+          duration: 3,
         },
         0
       );
 
-      // 2. Clip-path reveals for chapters 2 and 3
-      const primaryFrames = gsap.utils.toArray<HTMLElement>(".lb-primary-frame");
-      const secondaryFrames = gsap.utils.toArray<HTMLElement>(".lb-secondary-frame");
-      const headings = gsap.utils.toArray<HTMLElement>(".lb-heading");
-      const descs = gsap.utils.toArray<HTMLElement>(".lb-desc");
-      const inners = gsap.utils.toArray<HTMLElement>(".lb-parallax-inner");
+      // 2. Clip-path reveals for chapters 2 and 3 properly paced across 3 units
+      const primaryFrames = gsap.utils.toArray<HTMLElement>(
+        ".lb-primary-frame",
+        sectionRef.current
+      );
+      const secondaryFrames = gsap.utils.toArray<HTMLElement>(
+        ".lb-secondary-frame",
+        sectionRef.current
+      );
+      const headings = gsap.utils.toArray<HTMLElement>(
+        ".lb-heading",
+        sectionRef.current
+      );
+      const descs = gsap.utils.toArray<HTMLElement>(
+        ".lb-desc",
+        sectionRef.current
+      );
+      const inners = gsap.utils.toArray<HTMLElement>(
+        ".lb-parallax-inner",
+        sectionRef.current
+      );
 
       // Chapter 1 is initially visible
       if (primaryFrames[0]) {
         gsap.set(primaryFrames[0], { clipPath: "inset(0% 0% 0% 0%)" });
       }
 
-      // Chapter 2 reveals (midway through scrub)
+      // Chapter 2 reveals (at time 0.9 to 1.7)
       if (primaryFrames[1]) {
         tl.fromTo(
           primaryFrames[1],
           { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.32
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          0.9
         );
       }
       if (secondaryFrames[1]) {
         tl.fromTo(
           secondaryFrames[1],
           { clipPath: "inset(100% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.38
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          1.0
         );
       }
       if (headings[1]) {
         tl.fromTo(
           headings[1],
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.35
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          1.0
         );
       }
       if (descs[1]) {
         tl.fromTo(
           descs[1],
           { y: 25, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.4
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          1.1
         );
       }
 
-      // Chapter 3 reveals (late in scrub)
+      // Chapter 3 reveals (at time 1.9 to 2.7)
       if (primaryFrames[2]) {
         tl.fromTo(
           primaryFrames[2],
           { clipPath: "inset(100% 0% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.68
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          1.9
         );
       }
       if (secondaryFrames[2]) {
         tl.fromTo(
           secondaryFrames[2],
           { clipPath: "inset(0% 100% 0% 0%)" },
-          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.72
+          { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut", duration: 0.7 },
+          2.0
         );
       }
       if (headings[2]) {
         tl.fromTo(
           headings[2],
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.7
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          2.0
         );
       }
       if (descs[2]) {
         tl.fromTo(
           descs[2],
           { y: 25, opacity: 0 },
-          { y: 0, opacity: 1, ease: "power3.out" },
-          0.75
+          { y: 0, opacity: 1, ease: "power3.out", duration: 0.6 },
+          2.1
         );
       }
 
@@ -217,8 +247,8 @@ export default function Lookbook() {
         tl.fromTo(
           inner,
           { xPercent: 10, scale: 1.04 },
-          { xPercent: -10, scale: 1, ease: "none" },
-          i * 0.2
+          { xPercent: -10, scale: 1, ease: "none", duration: 1 },
+          i * 1.0
         );
       });
     },

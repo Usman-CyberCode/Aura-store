@@ -24,7 +24,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[+0-9\s\-()]{8,20}$/;
 
 export default function Checkout() {
-  const { items, subtotal, clearCart, formatPrice } = useCart();
+  const { items, subtotal, clearCart, formatPrice, isHydrated } = useCart();
 
   // Form states
   const [fullName, setFullName] = useState("");
@@ -152,6 +152,7 @@ export default function Checkout() {
       ).matches;
 
       if (!containerRef.current || prefersReducedMotion) return;
+      if (!formRef.current || !summaryRef.current) return;
 
       gsap.fromTo(
         [formRef.current, summaryRef.current],
@@ -159,7 +160,7 @@ export default function Checkout() {
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: "power3.out" }
       );
     },
-    { scope: containerRef, dependencies: [confirmedOrder] }
+    { scope: containerRef, dependencies: [confirmedOrder, isHydrated] }
   );
 
   return (
@@ -271,6 +272,13 @@ export default function Checkout() {
                 <span>EXPLORE COLLECTION</span>
               </Link>
             </div>
+          </div>
+        ) : !isHydrated ? (
+          /* CASE 1.5: HYDRATING STORAGE */
+          <div className={styles.emptyStateContainer} style={{ minHeight: "40vh" }}>
+            <span style={{ fontSize: "0.8rem", letterSpacing: "0.2em", color: "var(--text-muted)" }}>
+              SYNCHRONIZING ARCHIVE...
+            </span>
           </div>
         ) : items.length === 0 ? (
           /* CASE 2: EMPTY CART VIEW */

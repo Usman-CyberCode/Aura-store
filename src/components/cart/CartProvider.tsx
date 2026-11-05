@@ -120,6 +120,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     () => ({
       items,
       isOpen,
+      isHydrated,
       openCart,
       closeCart,
       toggleCart,
@@ -134,6 +135,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [
       items,
       isOpen,
+      isHydrated,
       openCart,
       closeCart,
       toggleCart,
