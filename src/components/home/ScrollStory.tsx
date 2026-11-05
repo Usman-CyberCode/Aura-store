@@ -180,7 +180,7 @@ export default function ScrollStory() {
           frames[1],
           { clipPath: "inset(0% 100% 0% 0%)" },
           { clipPath: "inset(0% 0% 0% 0%)", ease: "power2.inOut" },
-          0.3
+          0.1
         );
       }
       if (headlines[1]) {
@@ -321,9 +321,8 @@ export default function ScrollStory() {
           {STORY_SLIDES.map((_, i) => (
             <span
               key={`dot-${i}`}
-              className={`${styles.dot} ${
-                activeSlideIndex === i ? styles.dotActive : ""
-              }`}
+              className={`${styles.dot} ${activeSlideIndex === i ? styles.dotActive : ""
+                }`}
             />
           ))}
         </div>

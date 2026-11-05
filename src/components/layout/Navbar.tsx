@@ -4,20 +4,23 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { ScrollTrigger } from "@/lib/gsap";
+import { useCart } from "@/components/cart/CartProvider";
 import styles from "./Navbar.module.css";
 
 const NAV_ITEMS = [
   { label: "SHOP", href: "#shop" },
-  { label: "COLLECTIONS", href: "#collections" },
-  { label: "LOOKBOOK", href: "#lookbook" },
-  { label: "ABOUT", href: "#about" },
+  { label: "STORY", href: "#story" },
+  { label: "COLLECTIONS", href: "#shop" },
+  { label: "LOOKBOOK", href: "#hero" },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  const { totalItems, openCart } = useCart();
 
   useGSAP(
     () => {
@@ -64,11 +67,12 @@ export default function Navbar() {
           <button
             type="button"
             className={styles.cartButton}
-            aria-label="Shopping Cart with 0 items"
+            onClick={openCart}
+            aria-label={`Shopping Cart with ${totalItems} items`}
           >
             <ShoppingBag size={15} />
             <span>CART</span>
-            <span className={styles.cartCount}>0</span>
+            <span className={styles.cartCount}>{totalItems}</span>
           </button>
 
           <button
@@ -85,8 +89,9 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuOpen : ""
-          }`}
+        className={`${styles.mobileMenu} ${
+          mobileMenuOpen ? styles.mobileMenuOpen : ""
+        }`}
       >
         <nav className={styles.mobileNavList} aria-label="Mobile Navigation">
           {NAV_ITEMS.map((item) => (
@@ -99,12 +104,24 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+          <button
+            type="button"
+            className={styles.mobileNavLink}
+            style={{ textAlign: "left", display: "flex", alignItems: "center", gap: "12px", color: "var(--accent-red)" }}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openCart();
+            }}
+          >
+            <span>VIEW CART ({totalItems})</span>
+            <ShoppingBag size={20} />
+          </button>
         </nav>
         <div className={styles.mobileMeta}>
-
+          <span>AURA STORE // FW26</span>
+          <span>HAUTE COUTURE</span>
         </div>
       </div>
     </header>
   );
 }
-
