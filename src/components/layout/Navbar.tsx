@@ -11,8 +11,8 @@ import styles from "./Navbar.module.css";
 const NAV_ITEMS = [
   { label: "SHOP", href: "#shop" },
   { label: "STORY", href: "#story" },
-  { label: "COLLECTIONS", href: "#shop" },
   { label: "LOOKBOOK", href: "#lookbook" },
+  { label: "ABOUT", href: "#about" },
 ];
 
 export default function Navbar() {
