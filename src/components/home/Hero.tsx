@@ -162,7 +162,6 @@ export default function Hero() {
         onKeyDown={(e) => e.key === "Enter" && scrollToNext()}
         aria-label="Scroll to discover"
       >
-        <span className={styles.scrollText}>SCROLL</span>
         <ChevronDown size={14} className={styles.scrollChevron} />
       </div>
     </section>
