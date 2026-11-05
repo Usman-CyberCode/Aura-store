@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { label: "SHOP", href: "#shop" },
   { label: "STORY", href: "#story" },
   { label: "COLLECTIONS", href: "#shop" },
-  { label: "LOOKBOOK", href: "#hero" },
+  { label: "LOOKBOOK", href: "#lookbook" },
 ];
 
 export default function Navbar() {
