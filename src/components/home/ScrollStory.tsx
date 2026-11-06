@@ -30,7 +30,7 @@ const STORY_SLIDES: StorySlide[] = [
     headline: "01 — BUILT DIFFERENT.",
     description:
       "Crafted from 520 GSM heavyweight French terry and custom-milled waterproof tech membranes. Engineered for cold streets, structural posture, and unapologetic presence.",
-    image: "/images/Sitting black hoodie model.png",
+    image: "/images/Sitting black hoodie model.jpg",
     imageAlt: "AURA black hoodie sitting fashion model",
     detailLabel1: "SPECIFICATION",
     detailValue1: "520 GSM TERRY",
@@ -309,7 +309,7 @@ export default function ScrollStory() {
       if (inners[0]) {
         masterTl.fromTo(
           inners[0],
-          { xPercent: 6, scale: 1.04 },
+          { xPercent: 2, scale: 1.04 },
           { xPercent: -6, scale: 1, ease: "none", duration: 3.5 },
           0.5
         );
@@ -356,9 +356,8 @@ export default function ScrollStory() {
         {STORY_SLIDES.map((slide, idx) => (
           <article
             key={slide.id}
-            className={`${styles.slide} ${
-              slide.reverse ? styles.slideReverse : ""
-            }`}
+            className={`${styles.slide} ${slide.reverse ? styles.slideReverse : ""
+              }`}
             aria-label={slide.headline}
           >
             <div className={styles.slideInner}>
@@ -435,9 +434,8 @@ export default function ScrollStory() {
           {STORY_SLIDES.map((_, i) => (
             <span
               key={`dot-${i}`}
-              className={`${styles.dot} ${
-                activeSlideIndex === i ? styles.dotActive : ""
-              }`}
+              className={`${styles.dot} ${activeSlideIndex === i ? styles.dotActive : ""
+                }`}
             />
           ))}
         </div>

@@ -310,8 +310,8 @@ export default function Lookbook() {
         <div className={styles.subtleRedAccent} />
       </div>
 
-      {/* Pinned Section Editorial Header */}
-      <header className={styles.fixedHeader}>
+      {/* 1. Structural Section Editorial Header (Separated from horizontal content) */}
+      <header className={styles.sectionHeader}>
         <div className={styles.headerLeft}>
           <div className={styles.kicker}>
             <span className={styles.kickerLine} />
@@ -324,8 +324,9 @@ export default function Lookbook() {
         </p>
       </header>
 
-      {/* Horizontal Chapters Track */}
-      <div ref={trackRef} className={styles.track}>
+      {/* 2. Middle Horizontal Content Area (Cleanly dedicated slot) */}
+      <div className={styles.trackArea}>
+        <div ref={trackRef} className={styles.track}>
         {CHAPTERS.map((chapter) => (
           <article
             key={chapter.id}
@@ -397,9 +398,10 @@ export default function Lookbook() {
             </div>
           </article>
         ))}
+        </div>
       </div>
 
-      {/* Progress & Chapter Navigation Bar */}
+      {/* 3. Structural Bottom Progress & Chapter Navigation Bar */}
       <div className={styles.progressControls} aria-hidden="true">
         <div className={styles.chapterTracker}>
           {CHAPTERS.map((ch, idx) => (

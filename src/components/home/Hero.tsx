@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import styles from "./Hero.module.css";
@@ -10,11 +10,15 @@ import styles from "./Hero.module.css";
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const modelImageRef = useRef<HTMLDivElement>(null);
-  const subBrandRef = useRef<HTMLDivElement>(null);
-  const brandTitleRef = useRef<HTMLHeadingElement>(null);
-  const editionTagRef = useRef<HTMLParagraphElement>(null);
+  const watermarkRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLDivElement>(null);
+  const titleAuraRef = useRef<HTMLSpanElement>(null);
+  const titleStoreRef = useRef<HTMLSpanElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const indicatorsRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const bottomTagRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -26,64 +30,99 @@ export default function Hero() {
         gsap.set(
           [
             modelImageRef.current,
-            subBrandRef.current,
-            brandTitleRef.current,
-            editionTagRef.current,
+            watermarkRef.current,
+            labelRef.current,
+            titleAuraRef.current,
+            titleStoreRef.current,
+            taglineRef.current,
             ctaRef.current,
+            indicatorsRef.current,
             scrollIndicatorRef.current,
+            bottomTagRef.current,
           ],
-          { opacity: 1, y: 0, scale: 1 }
+          { opacity: 1, y: 0, x: 0, scale: 1 }
         );
         return;
       }
 
-      // Initial Entrance Timeline (Page load cinematic reveal, no scrub)
+      // Initial Entrance Timeline
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. Initial hero image subtle scale animation
+      // 1. Smooth initial image reveal & subtle background image scale
       tl.fromTo(
         modelImageRef.current,
-        { scale: 1.08, opacity: 10 },
-        { scale: 1, opacity: 10, duration: 1.8, ease: "power2.out" },
+        { scale: 1.05, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 1.8, ease: "power2.out" },
         0
       );
 
-      // 2. Huge centered typography reveal with smooth opacity + translateY
+      // Subtle background watermark reveal
       tl.fromTo(
-        brandTitleRef.current,
-        { y: 35, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" },
-        0.35
+        watermarkRef.current,
+        { opacity: 0, x: -30 },
+        { opacity: 0, x: 0, duration: 1.6, ease: "power3.out" },
+        0.2
       );
 
-      // 3. Small supporting text appears after headline
+      // 2. Typography staggered entrance
       tl.fromTo(
-        [subBrandRef.current, editionTagRef.current],
-        { y: 18, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12 },
-        0.65
+        labelRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.3
       );
 
-      // 4. CTA appears last
+      tl.fromTo(
+        titleAuraRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1.0, ease: "power4.out" },
+        0.45
+      );
+
+      tl.fromTo(
+        titleStoreRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1.0, ease: "power4.out" },
+        0.58
+      );
+
+      tl.fromTo(
+        taglineRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.75
+      );
+
+      // 3. CTA entrance after headline
       tl.fromTo(
         ctaRef.current,
-        { y: 18, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
-        0.9
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.95
       );
 
-      // 5. Scroll indicator subtle entrance
+      // 4. Campaign indicators animate subtly
+      if (indicatorsRef.current) {
+        tl.fromTo(
+          indicatorsRef.current.children,
+          { opacity: 0, x: 20 },
+          { opacity: 1, x: 0, duration: 0.8, stagger: 0.12, ease: "power2.out" },
+          1.1
+        );
+      }
+
+      // 5. Scroll indicator & bottom right tag entrance
       tl.fromTo(
-        scrollIndicatorRef.current,
+        [scrollIndicatorRef.current, bottomTagRef.current],
         { opacity: 0 },
-        { opacity: 0.75, duration: 1 },
-        1.15
+        { opacity: 1, duration: 0.9 },
+        1.25
       );
 
-      // Subtle scroll parallax exit as user begins scrolling down
+      // Subtle exit parallax on scroll
       if (modelImageRef.current && containerRef.current) {
         gsap.to(modelImageRef.current, {
-          yPercent: 12,
+          yPercent: 2,
           ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
@@ -97,6 +136,15 @@ export default function Hero() {
     { scope: containerRef }
   );
 
+  const scrollToShop = () => {
+    const shopSection = document.getElementById("shop");
+    if (shopSection) {
+      shopSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+    }
+  };
+
   const scrollToNext = () => {
     const nextSection = document.getElementById("story") || document.getElementById("shop");
     if (nextSection) {
@@ -108,51 +156,84 @@ export default function Hero() {
 
   return (
     <section ref={containerRef} className={styles.hero} id="hero">
-      {/* 1. Dominant Centered Fashion Model Visual */}
-      <div ref={modelImageRef} className={styles.modelContainer} aria-hidden="true">
+      {/* 1. Dominant Background Image Layer */}
+      <div ref={modelImageRef} className={styles.imageBackground} aria-hidden="true">
         <Image
-          src="/images/Black masked hoodie model.png"
-          alt="AURA Haute Couture Campaign Model"
+          src="/images/hero-aura.jpg"
+          alt="AURA STORE Luxury Streetwear Campaign"
           fill
           priority
           sizes="100vw"
-          className={styles.modelImage}
+          className={styles.heroImage}
         />
-        {/* Subtle Blue-Gray Cinematic Vignette and Soft Gradients */}
-        <div className={styles.cinematicOverlay} />
+        {/* Seamless Dark Gradient Overlays */}
+        <div className={styles.gradientOverlay} />
       </div>
 
-      {/* 2. Editorial Typography & CTA Layer */}
-      <div className={styles.editorialContent}>
-        {/* Supporting Sub-Brand Tag */}
-        <div ref={subBrandRef} className={styles.subBrand}>
-          <span>AURA X1</span>
-        </div>
+      {/* 2. Large Subtle Background AURA Typographic Watermark */}
+      <div ref={watermarkRef} className={styles.bgWatermark} aria-hidden="true">
+        <span>AURA</span>
+      </div>
 
-        {/* Huge Bold Centered Headline Over Model */}
-        <h1 ref={brandTitleRef} className={styles.brandTitle} aria-label="AURA">
-          AURA
-        </h1>
+      {/* 3. Main Editorial Content Container (Left-Aligned) */}
+      <div className={styles.contentContainer}>
+        <div className={styles.textContent}>
+          {/* Small Label: PREMIUM STREETWEAR */}
+          <div ref={labelRef} className={styles.labelBadge}>
+            <span className={styles.badgeLine} />
+            <span>PREMIUM STREETWEAR</span>
+          </div>
 
-        {/* Supporting Edition Detail */}
-        <p ref={editionTagRef} className={styles.editionTag}>
-          FIRST EDITION — PRODUCTION CLOSED
-        </p>
+          {/* Huge Headline: AURA (white) STORE (crimson red) */}
+          <h1 className={styles.mainTitle} aria-label="AURA STORE">
+            <span ref={titleAuraRef} className={styles.titleLineAura}>
+              AURA
+            </span>
+            <span ref={titleStoreRef} className={styles.titleLineStore}>
+              STORE
+            </span>
+          </h1>
 
-        {/* Minimal Centered Outlined Button */}
-        <div ref={ctaRef} className={styles.ctaWrapper}>
-          <button
-            type="button"
-            onClick={scrollToNext}
-            className={styles.discoverBtn}
-            aria-label="Discover AURA collection"
-          >
-            <span>DISCOVER</span>
-          </button>
+          {/* Tagline: WEAR THE VISION. */}
+          <p ref={taglineRef} className={styles.tagline}>
+            WEAR THE VISION.
+          </p>
+
+          {/* CTA: EXPLORE COLLECTION */}
+          <div ref={ctaRef} className={styles.ctaWrapper}>
+            <button
+              type="button"
+              onClick={scrollToShop}
+              className={styles.exploreBtn}
+              aria-label="Explore Collection"
+            >
+              <span>EXPLORE COLLECTION</span>
+              <ArrowRight size={14} className={styles.btnArrow} />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* 3. Small Downward Scroll Indicator */}
+      {/* 4. Right Side Minimal 01 / 02 / 03 Campaign Indicators */}
+      <div ref={indicatorsRef} className={styles.campaignIndicators} aria-hidden="true">
+        <div className={`${styles.indicatorItem} ${styles.indicatorActive}`}>
+          <span className={styles.indicatorNum}>01</span>
+          <span className={styles.indicatorLine} />
+          <span className={styles.indicatorLabel}>FW26 GENESIS</span>
+        </div>
+        <div className={styles.indicatorItem}>
+          <span className={styles.indicatorNum}>02</span>
+          <span className={styles.indicatorLine} />
+          <span className={styles.indicatorLabel}>AFTER DARK</span>
+        </div>
+        <div className={styles.indicatorItem}>
+          <span className={styles.indicatorNum}>03</span>
+          <span className={styles.indicatorLine} />
+          <span className={styles.indicatorLabel}>STREET CULTURE</span>
+        </div>
+      </div>
+
+      {/* 5. Bottom Left Scroll Indicator */}
       <div
         ref={scrollIndicatorRef}
         className={styles.scrollIndicator}
@@ -160,9 +241,18 @@ export default function Hero() {
         role="button"
         tabIndex={0}
         onKeyDown={(e) => e.key === "Enter" && scrollToNext()}
-        aria-label="Scroll to discover"
+        aria-label="Scroll to explore"
       >
-        <ChevronDown size={14} className={styles.scrollChevron} />
+        <div className={styles.scrollLineTrack}>
+          <div className={styles.scrollLineThumb} />
+        </div>
+        <span className={styles.scrollText}>SCROLL</span>
+      </div>
+
+      {/* 6. Bottom Right Tag: MORE THAN FASHION. */}
+      <div ref={bottomTagRef} className={styles.bottomRightTag} aria-hidden="true">
+        <span className={styles.tagDot} />
+        <span>MORE THAN FASHION.</span>
       </div>
     </section>
   );

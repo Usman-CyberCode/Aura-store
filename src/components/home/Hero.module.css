@@ -3,18 +3,19 @@
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  min-height: 600px;
+  min-height: 640px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   overflow: hidden;
   background-color: #050505;
   color: #ffffff;
+  padding: calc(var(--navbar-height) + var(--space-sm)) var(--space-3xl) var(--space-2xl);
+  box-sizing: border-box;
 }
 
-/* 1. Dominant Background Model Container */
-.modelContainer {
+/* 1. Dominant Background Image Layer */
+.imageBackground {
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -23,100 +24,145 @@
   overflow: hidden;
 }
 
-.modelImage {
+.heroImage {
   object-fit: cover;
-  object-position: center 12%;
-  filter: contrast(1.06) brightness(0.9);
+  object-position: 52% center;
+  filter: contrast(1.04) brightness(0.96);
   will-change: transform, opacity;
 }
 
-/* Subtle Blue-Gray Cinematic Vignette and Soft Gradients */
-.cinematicOverlay {
+/* Seamless Dark Gradient Overlays (Zero visible rectangular boundaries) */
+.gradientOverlay {
   position: absolute;
   inset: 0;
   background:
-    /* Top fade for Navbar readability */
-    linear-gradient(to bottom, rgba(5, 5, 5, 0.75) 0%, rgba(5, 5, 5, 0.2) 20%, transparent 40%),
-    /* Bottom fade into #050505 */
-    linear-gradient(to top, #050505 0%, rgba(5, 5, 5, 0.8) 12%, rgba(5, 5, 5, 0.25) 35%, transparent 60%),
-    /* Subtle blue-gray atmospheric glow centered on model chest */
-    radial-gradient(ellipse at 50% 48%, rgba(26, 32, 44, 0.3) 0%, rgba(10, 12, 16, 0.6) 55%, rgba(5, 5, 5, 0.92) 100%);
+    /* Top shading under frosted Navbar */
+    linear-gradient(to bottom, rgba(5, 5, 5, 0.85) 0%, rgba(5, 5, 5, 0.25) 20%, transparent 40%),
+    /* Bottom soft blend into next section */
+    linear-gradient(to top, #050505 0%, rgba(5, 5, 5, 0.85) 12%, transparent 35%),
+    /* Subtle peripheral vignette */
+    radial-gradient(circle at 75% 50%, transparent 45%, rgba(5, 5, 5, 0.6) 100%);
   pointer-events: none;
+  z-index: 2;
 }
 
-/* 2. Editorial Content Layer */
-.editorialContent {
+/* 2. Large Subtle Background AURA Typographic Watermark */
+.bgWatermark {
+  position: absolute;
+  left: -2vw;
+  top: 52%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(10rem, 26vw, 30rem);
+  font-weight: 900;
+  line-height: 0.75;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* 3. Main Editorial Content Container (Left-Aligned) */
+.contentContainer {
   position: relative;
   z-index: 10;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.textContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 var(--space-lg);
-  margin-top: 1vh;
-  /* Optical balance under navbar */
-  max-width: 100%;
-  user-select: none;
+  align-items: flex-start;
+  max-width: 680px;
 }
 
-/* "AURA X1" */
-.subBrand {
-  font-family: var(--font-mono);
-  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
-  font-weight: 500;
-  letter-spacing: clamp(0.25em, 0.5vw, 0.45em);
-  color: rgba(255, 255, 255, 0.85);
-  text-transform: uppercase;
-  margin-bottom: clamp(6px, 1.5vh, 14px);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-/* Huge Bold White "AURA" */
-.brandTitle {
-  font-family: var(--font-display);
-  font-size: clamp(4.5rem, 19vw, 16.5rem);
-  font-weight: 900;
-  line-height: 0.84;
-  letter-spacing: clamp(0.04em, 1.8vw, 0.1em);
-  color: #ffffff;
-  text-transform: uppercase;
-  margin: 0;
-  padding: 0;
-  text-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.9),
-    0 2px 15px rgba(0, 0, 0, 0.8);
-}
-
-/* "FIRST EDITION — PRODUCTION CLOSED" */
-.editionTag {
-  font-family: var(--font-mono);
-  font-size: clamp(0.6875rem, 0.95vw, 0.85rem);
-  font-weight: 400;
-  letter-spacing: clamp(0.2em, 0.4vw, 0.35em);
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  margin-top: clamp(10px, 2.2vh, 22px);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-}
-
-/* 3. CTA: Minimal Centered Outlined Button */
-.ctaWrapper {
-  margin-top: clamp(24px, 4.5vh, 44px);
-}
-
-.discoverBtn {
+/* Small Label: PREMIUM STREETWEAR */
+.labelBadge {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 12px 38px;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.6875rem, 0.9vw, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--accent-red);
+  text-transform: uppercase;
+  margin-bottom: clamp(12px, 2vh, 20px);
+}
+
+.badgeLine {
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--accent-red);
+}
+
+/* Huge Headline: AURA (white) STORE (crimson red) */
+.mainTitle {
+  font-family: var(--font-display);
+  font-size: 75px;
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: clamp(0.02em, 0.5vw, 0.05em);
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 clamp(14px, 2.5vh, 24px) 0;
+  padding: 0;
+}
+
+.titleLineAura {
+  color: #ffffff;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.9);
+}
+
+.titleLineStore {
+  color: var(--accent-red);
+  text-shadow:
+    0 4px 30px rgba(229, 9, 20, 0.35),
+    0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Tagline: WEAR THE VISION. */
+.tagline {
+  font-family: var(--font-sans);
+  font-size: clamp(0.9375rem, 1.2vw, 1.1875rem);
+  font-weight: 400;
+  letter-spacing: clamp(0.18em, 0.3vw, 0.28em);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin: 0 0 clamp(24px, 4vh, 36px) 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* CTA: EXPLORE COLLECTION */
+.ctaWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.exploreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 36px;
   background-color: transparent;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-left: 2px solid var(--accent-red);
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -125,100 +171,259 @@
   -webkit-backdrop-filter: blur(8px);
 }
 
-.discoverBtn:hover,
-.discoverBtn:focus-visible {
+.btnArrow {
+  transition: transform 0.3s ease;
+}
+
+.exploreBtn:hover {
   background-color: #ffffff;
   color: #050505;
   border-color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.15);
-  outline: none;
+  border-left-color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.25);
 }
 
-.discoverBtn:active {
-  transform: translateY(0);
+.exploreBtn:hover .btnArrow {
+  transform: translateX(4px);
 }
 
-/* 4. Small Downward Scroll Indicator */
-.scrollIndicator {
+.exploreBtn:active {
+  transform: translateX(2px);
+}
+
+/* 4. Right Side Minimal 01 / 02 / 03 Campaign Indicators */
+.campaignIndicators {
   position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: var(--space-3xl);
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10;
   display: flex;
   flex-direction: column;
+  gap: var(--space-lg);
+  pointer-events: none;
+}
+
+.indicatorItem {
+  display: flex;
   align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.6);
+  gap: 10px;
+  opacity: 0.45;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.indicatorActive {
+  opacity: 1;
+}
+
+.indicatorNum {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--accent-red);
+}
+
+.indicatorLine {
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background-color: var(--accent-red);
+}
+
+.indicatorActive .indicatorLine {
+  width: 28px;
+}
+
+.indicatorLabel {
   font-family: var(--font-mono);
   font-size: 0.625rem;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.22em;
+  color: #ffffff;
   text-transform: uppercase;
-  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* 5. Bottom Left Scroll Indicator */
+.scrollIndicator {
+  position: absolute;
+  bottom: 28px;
+  left: var(--space-3xl);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.65);
+  transition: color 0.3s ease;
   user-select: none;
 }
 
 .scrollIndicator:hover {
   color: #ffffff;
-  transform: translateX(-50%) translateY(2px);
 }
 
-.scrollChevron {
-  animation: bounceDown 2s infinite ease-in-out;
+.scrollLineTrack {
+  position: relative;
+  width: 32px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+  border-radius: 2px;
 }
 
-@keyframes bounceDown {
+.scrollLineThumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40%;
+  background: var(--accent-red);
+  animation: slideAcross 2s infinite ease-in-out;
+}
 
-  0%,
-  100% {
-    transform: translateY(0);
+@keyframes slideAcross {
+  0% {
+    left: -40%;
   }
 
   50% {
-    transform: translateY(4px);
+    left: 100%;
+  }
+
+  100% {
+    left: 100%;
   }
 }
 
-/* Tablet adjustments */
+.scrollText {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* 6. Bottom Right Tag: MORE THAN FASHION. */
+.bottomRightTag {
+  position: absolute;
+  bottom: 28px;
+  right: var(--space-3xl);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+
+.tagDot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--accent-red);
+}
+
+/* Tablet Adjustments */
 @media (max-width: 1024px) {
-  .modelImage {
-    object-position: center 20%;
-  }
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
   .hero {
-    min-height: 100svh;
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
   }
 
-  .modelImage {
-    object-position: center 18%;
-  }
-
-  .brandTitle {
-    letter-spacing: clamp(0.04em, 1.2vw, 0.08em);
-  }
-
-  .subBrand {
-    letter-spacing: 0.25em;
-  }
-
-  .editionTag {
-    letter-spacing: 0.18em;
-    padding: 0 16px;
-    line-height: 1.4;
-  }
-
-  .discoverBtn {
-    padding: 11px 32px;
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
+  .campaignIndicators {
+    right: var(--space-xl);
   }
 
   .scrollIndicator {
-    bottom: 16px;
+    left: var(--space-xl);
+  }
+
+  .bottomRightTag {
+    right: var(--space-xl);
+  }
+
+  .mainTitle {
+    font-size: clamp(3.25rem, 8vw, 6.5rem);
+  }
+
+  .heroImage {
+    object-position: 78% center;
+  }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100svh;
+    padding: calc(var(--navbar-height) + var(--space-md)) var(--space-md) var(--space-3xl);
+    align-items: flex-end;
+    padding-bottom: 72px;
+  }
+
+  .heroImage {
+    object-position: 72% center;
+  }
+
+  .gradientOverlay {
+    background:
+      /* Heavy overall dark wash on mobile so text is legible and model face isn't obscured */
+      linear-gradient(to top, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.75) 50%, rgba(5, 5, 5, 0.3) 100%),
+      linear-gradient(to right, rgba(5, 5, 5, 0.85) 0%, transparent 60%);
+  }
+
+  .bgWatermark {
+    font-size: clamp(6rem, 30vw, 12rem);
+    top: 30%;
+  }
+
+  .textContent {
+    max-width: 100%;
+  }
+
+  .labelBadge {
+    margin-bottom: 8px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+  }
+
+  .mainTitle {
+    font-size: clamp(2.75rem, 13vw, 4.5rem);
+    line-height: 0.9;
+    margin-bottom: 12px;
+  }
+
+  .tagline {
+    font-size: 0.8125rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+
+  .exploreBtn {
+    padding: 12px 28px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+
+  .campaignIndicators {
+    display: none;
+  }
+
+  .scrollIndicator {
+    left: var(--space-md);
+    bottom: 20px;
+  }
+
+  .bottomRightTag {
+    right: var(--space-md);
+    bottom: 20px;
+    font-size: 0.5625rem;
+    letter-spacing: 0.18em;
   }
 }
