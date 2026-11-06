@@ -54,7 +54,7 @@ export const FEATURED_PRODUCTS: Product[] = [
       "Water-repellent technical ripstop shell packed with lightweight thermal fill. Features a stand collar, tonal hardware, storm flap closure, and signature architectural volume.",
     price: 24900,
     category: "jackets",
-    image: "/images/Black puffer jacket model.png",
+    image: "/images/Black puffer jacket model.jpg",
     gallery: [
       "/images/Black puffer jacket model.png",
       "/images/Full-body masked model.png",
@@ -75,7 +75,7 @@ export const FEATURED_PRODUCTS: Product[] = [
       "Sculpted silhouette composed of premium full-grain Italian leather and crimson suede panelling. Finished with padded collars, waxed cotton laces, and a lugged traction sole.",
     price: 21500,
     category: "footwear",
-    image: "/images/Red-black sneaker.png",
+    image: "/images/Red-black sneaker.jpg",
     gallery: [
       "/images/Red-black sneaker.png",
       "/images/Black-red sneakers model.png",
@@ -96,10 +96,10 @@ export const FEATURED_PRODUCTS: Product[] = [
       "Boxy streetwear silhouette cut from pre-shrunk compact cotton jersey. Clean raw-hem finish and tonal micro-embroidery at the nape. Ideal for standalone wear or foundational layering.",
     price: 7800,
     category: "tees",
-    image: "/images/Grey T-shirt model.png",
+    image: "/images/Grey T-shirt model 1.jpg",
     gallery: [
-      "/images/Grey T-shirt model.png",
-      "/images/Beige T-shirt model.png",
+      "/images/Grey T-shirt model 1.jpg",
+      "/images/Beige T-shirt model 1.jpg",
     ],
     badge: "NEW DROP",
     sizes: ["S", "M", "L", "XL"],

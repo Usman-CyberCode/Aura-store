@@ -46,7 +46,7 @@ const STORY_SLIDES: StorySlide[] = [
     headline: "02 — NO COMPROMISE.",
     description:
       "No mass production. Zero shortcuts. Every seam is reinforced with ergonomic double-needle binding and precision tactile graphics, defining modern armor for the street.",
-    image: "/images/Grey T-shirt model.png",
+    image: "/images/Grey T-shirt model.jpg",
     imageAlt: "Grey T-shirt model",
     detailLabel1: "PRODUCTION",
     detailValue1: "LIMITED BATCH 250",
@@ -62,7 +62,7 @@ const STORY_SLIDES: StorySlide[] = [
     headline: "03 — DEFINE YOUR AURA.",
     description:
       "Step beyond conformity into nocturnal sophistication. A distinct visual statement engineered for individuals who command respect without saying a single word.",
-    image: "/images/AURA Store neon model.png",
+    image: "/images/AURA Store neon model.jpg",
     imageAlt: "AURA Store neon fashion model editorial",
     detailLabel1: "ORIGIN",
     detailValue1: "PARIS // TOKYO",
@@ -309,7 +309,7 @@ export default function ScrollStory() {
       if (inners[0]) {
         masterTl.fromTo(
           inners[0],
-          { xPercent: 2, scale: 1.04 },
+          { xPercent: 6, scale: 1.04 },
           { xPercent: -6, scale: 1, ease: "none", duration: 3.5 },
           0.5
         );

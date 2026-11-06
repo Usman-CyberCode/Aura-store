@@ -36,11 +36,11 @@ const CHAPTERS: LookbookChapter[] = [
     location: "PARIS // 11TH ARRONDISSEMENT",
     palette: "OBSIDIAN / GRAPHITE / CHARCOAL",
     code: "LB-26-01 // NOIR",
-    primaryImage: "/images/Black masked hoodie model.png",
+    primaryImage: "/images/Black masked hoodie model.jpg",
     primaryAlt: "AURA Noir Edit black masked hoodie",
     primaryTag: "LOOK 01 // OVERSIZED HOODIE",
     primaryPosition: "center 30%",
-    secondaryImage: "/images/Black puffer jacket model.png",
+    secondaryImage: "/images/AURA Store neon model (2).jpg",
     secondaryAlt: "AURA Tactical puffer silhouette",
     secondaryTag: "LOOK 02 // TACTICAL PUFFER",
     secondaryPosition: "center 25%",
@@ -55,11 +55,11 @@ const CHAPTERS: LookbookChapter[] = [
     location: "SHIBUYA DISTRICT // TOKYO",
     palette: "PITCH BLACK // CRIMSON LUMEN",
     code: "LB-26-02 // LUMEN",
-    primaryImage: "/images/AURA Store neon model.png",
+    primaryImage: "/images/Full-body maske.jpg",
     primaryAlt: "AURA Store neon model campaign",
     primaryTag: "LOOK 03 // STORE NOCTURNE",
     primaryPosition: "center 22%",
-    secondaryImage: "/images/Full-body masked model.png",
+    secondaryImage: "/images/Full-body model.jpg",
     secondaryAlt: "AURA Full-body masked silhouette",
     secondaryTag: "LOOK 04 // FULL-BODY ARMOR",
     secondaryPosition: "center 18%",
@@ -74,7 +74,7 @@ const CHAPTERS: LookbookChapter[] = [
     location: "LOWER EAST SIDE // NYC",
     palette: "SLATE GREY // WARM ALABASTER",
     code: "LB-26-03 // ESSENTIAL",
-    primaryImage: "/images/Grey T-shirt model.png",
+    primaryImage: "/images/Grey T-shirt model 111.jpg",
     primaryAlt: "AURA Grey oversized streetwear t-shirt model",
     primaryTag: "LOOK 05 // SLATE OVERSIZED",
     primaryPosition: "center 20%",
@@ -327,77 +327,77 @@ export default function Lookbook() {
       {/* 2. Middle Horizontal Content Area (Cleanly dedicated slot) */}
       <div className={styles.trackArea}>
         <div ref={trackRef} className={styles.track}>
-        {CHAPTERS.map((chapter) => (
-          <article
-            key={chapter.id}
-            className={styles.chapterSlide}
-            aria-label={chapter.heading}
-          >
-            <div className={styles.chapterInner}>
-              {/* Text / Metadata Column */}
-              <div className={styles.chapterTextCol}>
-                <div className={styles.chapterMeta}>
-                  <span className={styles.chapterNumber}>{chapter.number}</span>
-                  <span className={styles.chapterCode}>{chapter.code}</span>
+          {CHAPTERS.map((chapter) => (
+            <article
+              key={chapter.id}
+              className={styles.chapterSlide}
+              aria-label={chapter.heading}
+            >
+              <div className={styles.chapterInner}>
+                {/* Text / Metadata Column */}
+                <div className={styles.chapterTextCol}>
+                  <div className={styles.chapterMeta}>
+                    <span className={styles.chapterNumber}>{chapter.number}</span>
+                    <span className={styles.chapterCode}>{chapter.code}</span>
+                  </div>
+
+                  <h3 className={`${styles.chapterHeading} lb-heading`}>
+                    {chapter.heading}
+                  </h3>
+                  <p className={`${styles.chapterDesc} lb-desc`}>
+                    {chapter.description}
+                  </p>
+
+                  <div className={`${styles.chapterSpecs} lb-specs`}>
+                    <div className={styles.specRow}>
+                      <span>LOCATION</span>
+                      <span className={styles.specValue}>{chapter.location}</span>
+                    </div>
+                    <div className={styles.specRow}>
+                      <span>PALETTE</span>
+                      <span className={styles.specValue}>{chapter.palette}</span>
+                    </div>
+                    <div className={styles.specRow}>
+                      <span>IDENTIFIER</span>
+                      <span className={styles.specValue}>{chapter.code}</span>
+                    </div>
+                  </div>
                 </div>
 
-                <h3 className={`${styles.chapterHeading} lb-heading`}>
-                  {chapter.heading}
-                </h3>
-                <p className={`${styles.chapterDesc} lb-desc`}>
-                  {chapter.description}
-                </p>
+                {/* Primary Large Editorial Image */}
+                <div className={`${styles.primaryImageFrame} lb-primary-frame`}>
+                  <span className={styles.frameTag}>{chapter.primaryTag}</span>
+                  <span className={styles.frameCoords}>AURA LABS // 2026</span>
+                  <div className={`${styles.innerParallax} lb-parallax-inner`}>
+                    <Image
+                      src={chapter.primaryImage}
+                      alt={chapter.primaryAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 38vw"
+                      className={styles.fashionImage}
+                      style={{ objectPosition: chapter.primaryPosition || "center center" }}
+                    />
+                  </div>
+                </div>
 
-                <div className={`${styles.chapterSpecs} lb-specs`}>
-                  <div className={styles.specRow}>
-                    <span>LOCATION</span>
-                    <span className={styles.specValue}>{chapter.location}</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span>PALETTE</span>
-                    <span className={styles.specValue}>{chapter.palette}</span>
-                  </div>
-                  <div className={styles.specRow}>
-                    <span>IDENTIFIER</span>
-                    <span className={styles.specValue}>{chapter.code}</span>
+                {/* Secondary Detail Editorial Image */}
+                <div className={`${styles.secondaryImageFrame} lb-secondary-frame`}>
+                  <span className={styles.frameTag}>{chapter.secondaryTag}</span>
+                  <span className={styles.frameCoords}>FIGURE 02</span>
+                  <div className={`${styles.innerParallax} lb-parallax-inner`}>
+                    <Image
+                      src={chapter.secondaryImage}
+                      alt={chapter.secondaryAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 30vw"
+                      className={styles.fashionImage}
+                      style={{ objectPosition: chapter.secondaryPosition || "center center" }}
+                    />
                   </div>
                 </div>
               </div>
-
-              {/* Primary Large Editorial Image */}
-              <div className={`${styles.primaryImageFrame} lb-primary-frame`}>
-                <span className={styles.frameTag}>{chapter.primaryTag}</span>
-                <span className={styles.frameCoords}>AURA LABS // 2026</span>
-                <div className={`${styles.innerParallax} lb-parallax-inner`}>
-                  <Image
-                    src={chapter.primaryImage}
-                    alt={chapter.primaryAlt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 38vw"
-                    className={styles.fashionImage}
-                    style={{ objectPosition: chapter.primaryPosition || "center center" }}
-                  />
-                </div>
-              </div>
-
-              {/* Secondary Detail Editorial Image */}
-              <div className={`${styles.secondaryImageFrame} lb-secondary-frame`}>
-                <span className={styles.frameTag}>{chapter.secondaryTag}</span>
-                <span className={styles.frameCoords}>FIGURE 02</span>
-                <div className={`${styles.innerParallax} lb-parallax-inner`}>
-                  <Image
-                    src={chapter.secondaryImage}
-                    alt={chapter.secondaryAlt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                    className={styles.fashionImage}
-                    style={{ objectPosition: chapter.secondaryPosition || "center center" }}
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
         </div>
       </div>
 
@@ -407,9 +407,8 @@ export default function Lookbook() {
           {CHAPTERS.map((ch, idx) => (
             <span
               key={ch.id}
-              className={`${styles.chapterTab} ${
-                activeChapter === idx ? styles.chapterTabActive : ""
-              }`}
+              className={`${styles.chapterTab} ${activeChapter === idx ? styles.chapterTabActive : ""
+                }`}
             >
               {ch.tabLabel}
             </span>
